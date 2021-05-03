@@ -7,7 +7,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
  
 const App = () => {
 	let user = null;
-    let transactionStack = new jsTPS();
+    // let transactionStack = new jsTPS();
 	let refreshTps = false;
     const { loading, error, data, refetch } = useQuery(queries.GET_DB_USER);
 
