@@ -29,15 +29,16 @@ const LoggedOut = (props) => {
     return (
         <>
             <WNavItem hoverAnimation="lighten">
-                <WButton className="navbar-options" onClick={props.setShowLogin} wType="texted" hoverAnimation="text-primary">
-                    Login
-                </WButton>
-            </WNavItem>
-            <WNavItem hoverAnimation="lighten">
                 <WButton className="navbar-options" onClick={props.setShowCreate} wType="texted" hoverAnimation="text-primary"> 
                     Sign Up 
                 </WButton>
             </WNavItem>
+            <WNavItem hoverAnimation="lighten">
+                <WButton className="navbar-options" onClick={props.setShowLogin} wType="texted" hoverAnimation="text-primary">
+                    Login
+                </WButton>
+            </WNavItem>
+
         </>
     );
 };

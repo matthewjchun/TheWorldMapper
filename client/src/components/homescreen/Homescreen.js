@@ -1,11 +1,14 @@
 import Logo 							from '../navbar/Logo';
-import Login 							from '../modals/Login';
-import Delete 							from '../modals/Delete';
-import MainContents 					from '../main/MainContents';
-import CreateAccount 					from '../modals/CreateAccount';
+// import Globe							from '../public'
+// import Login 							from '../modals/Login';
+// import Delete 							from '../modals/Delete';
+// import MainContents 					from '../main/MainContents';
+// import CreateAccount 					from '../modals/CreateAccount';
+import RegisterScreen					from '../accounts/RegisterScreen';
+import LoginScreen						from '../accounts/LoginScreen';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import * as mutations 					from '../../cache/mutations';
-import SidebarContents 					from '../sidebar/SidebarContents';
+// import SidebarContents 					from '../sidebar/SidebarContents';
 import { GET_DB_TODOS } 				from '../../cache/queries';
 import React, { useState } 				from 'react';
 import { useMutation, useQuery } 		from '@apollo/client';
@@ -41,6 +44,7 @@ const Homescreen = (props) => {
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
+	const [showHome, toggleShowHome]		= useState(true);
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
@@ -204,23 +208,29 @@ const Homescreen = (props) => {
 		loadTodoList(selectedList);
 	};
 
+	const setShowHome = () => {
+		toggleShowCreate(false);
+		toggleShowLogin(false);
+		toggleShowHome(!showHome);
+	}
+
 	const setShowLogin = () => {
-		toggleShowDelete(false);
+		toggleShowHome(false);
 		toggleShowCreate(false);
 		toggleShowLogin(!showLogin);
 	};
 
 	const setShowCreate = () => {
-		toggleShowDelete(false);
+		toggleShowHome(false);
 		toggleShowLogin(false);
 		toggleShowCreate(!showCreate);
 	};
 
-	const setShowDelete = () => {
-		toggleShowCreate(false);
-		toggleShowLogin(false);
-		toggleShowDelete(!showDelete)
-	};
+	// const setShowDelete = () => {
+	// 	toggleShowCreate(false);
+	// 	toggleShowLogin(false);
+	// 	toggleShowDelete(!showDelete)
+	// };
 	
 	const sort = (criteria) => {
 		let prevSortRule = sortRule;
@@ -245,13 +255,40 @@ const Homescreen = (props) => {
 						<NavbarOptions
 							fetchUser={props.fetchUser} 	auth={auth} 
 							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
+							setShowHome={setShowHome}
 							reloadTodos={refetch} 			setActiveList={loadTodoList}
 						/>
 					</ul>
 				</WNavbar>
 			</WLHeader>
+{/*THIS IS ALL GOOD  */}
 
-			<WLSide side="left">
+{/* GOTTA CHANGE THIS */}
+			<WLMain>
+				{
+					showHome ?
+						<div className="welcome-msg">
+						Welcome to the 
+						<br></br>
+						World Data Mapper
+						</div>
+						:
+						<></>
+				}
+				{
+					showCreate ?
+						<RegisterScreen setShowHome={setShowHome} setShowCreate={setShowCreate} fetchUser={props.fetchUser} />
+						:
+						<></>
+				}
+				{
+					showLogin ?
+						<LoginScreen setShowHome={setShowHome} setShowCreate={setShowCreate} fetchUser={props.fetchUser} />
+						:
+						<></>
+				}
+			</WLMain>
+			{/* <WLSide side="left">
 				<WSidebar>
 					{
 						activeList ? 
@@ -264,8 +301,8 @@ const Homescreen = (props) => {
 							<></>
 					}
 				</WSidebar>
-			</WLSide>
-			<WLMain>
+			</WLSide> */}
+			{/* <WLMain>
 				{
 					activeList ? 
 					
@@ -283,19 +320,19 @@ const Homescreen = (props) => {
 							<div className="container-secondary" />
 				}
 
-			</WLMain>
+			</WLMain> */}
 
-			{
+			{/* {
 				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} setShowDelete={setShowDelete} />)
-			}
+			} */}
 
-			{
+			{/* {
 				showCreate && (<CreateAccount fetchUser={props.fetchUser} setShowCreate={setShowCreate} />)
 			}
 
 			{
-				showLogin && (<Login fetchUser={props.fetchUser} reloadTodos={refetch}setShowLogin={setShowLogin} />)
-			}
+				showLogin && (<LoginScreen fetchUser={props.fetchUser} reloadTodos={refetch}setShowLogin={setShowLogin} />)
+			} */}
 
 		</WLayout>
 	);
