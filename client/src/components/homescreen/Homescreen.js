@@ -7,6 +7,7 @@ import Globe							from '../../globe.jpg';
 import RegisterScreen					from '../accounts/RegisterScreen';
 import LoginScreen						from '../accounts/LoginScreen';
 import IntroScreen						from '../accounts/IntroScreen';
+import UpdateScreen						from '../accounts/UpdateScreen';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import * as mutations 					from '../../cache/mutations';
 // import SidebarContents 					from '../sidebar/SidebarContents';
@@ -46,6 +47,7 @@ const Homescreen = (props) => {
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
 	const [showHome, toggleShowHome]		= useState(true);
+	const [showUpdate, toggleShowUpdate]	= useState(false);
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
@@ -212,20 +214,30 @@ const Homescreen = (props) => {
 	const setShowHome = () => {
 		toggleShowCreate(false);
 		toggleShowLogin(false);
+		toggleShowUpdate(false);
 		toggleShowHome(!showHome);
 	}
 
 	const setShowLogin = () => {
 		toggleShowHome(false);
 		toggleShowCreate(false);
+		toggleShowUpdate(false);
 		toggleShowLogin(!showLogin);
 	};
 
 	const setShowCreate = () => {
 		toggleShowHome(false);
 		toggleShowLogin(false);
+		toggleShowUpdate(false);
 		toggleShowCreate(!showCreate);
 	};
+
+	const setShowUpdate = () => {
+		toggleShowHome(false);
+		toggleShowLogin(false);
+		toggleShowCreate(false);
+		toggleShowUpdate(!showUpdate);
+	}
 
 	// const setShowDelete = () => {
 	// 	toggleShowCreate(false);
@@ -258,17 +270,15 @@ const Homescreen = (props) => {
 						<NavbarOptions
 							fetchUser={props.fetchUser} 	auth={auth} 
 							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
-							setShowHome={setShowHome}
+							setShowHome={setShowHome}		setShowUpdate={setShowUpdate}
 							reloadTodos={refetch} 			setActiveList={loadTodoList}
+							user={props.user}
 						/>
 					</ul>
 				</WNavbar>
 			</WLHeader>
 {/*THIS IS ALL GOOD  */}
-
-{/* GOTTA CHANGE THIS */}
-			<WLMain>
-				{ () => {
+{/* () => {
 					if(showHome){
 						console.log("hi")
 						if(auth){
@@ -283,7 +293,14 @@ const Homescreen = (props) => {
 					} else{
 						console.log("why")
 					}
-				}
+				} */}
+{/* GOTTA CHANGE THIS */}
+			<WLMain>
+				{ 
+					showHome ?
+						<IntroScreen/>
+						:
+						<></>
 				}
 				{
 					// shows the registration screen, shown after clicking sign up
@@ -296,6 +313,13 @@ const Homescreen = (props) => {
 					// shows the login screen, shown after clicking login
 					showLogin ?
 						<LoginScreen setShowHome={setShowHome} setShowLogin={setShowLogin} fetchUser={props.fetchUser} />
+						:
+						<></>
+				}
+				{
+					showUpdate ?
+						<UpdateScreen setShowHome={setShowHome} setShowUpdate={setShowUpdate} fetchUser={props.fetchUser}
+						 user={props.user}/>
 						:
 						<></>
 				}
