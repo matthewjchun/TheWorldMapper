@@ -17,11 +17,18 @@ const LoggedIn = (props) => {
     };
 
     return (
+        <>
+        <WNavItem hoverAnimation="lighten">
+            <WButton className="navbar-options" onClick={props.setShowUpdate} wType="texted" hoverAnimation="text-primary">
+                User
+            </WButton>
+        </WNavItem>
         <WNavItem hoverAnimation="lighten">
             <WButton className="navbar-options" onClick={handleLogout} wType="texted" hoverAnimation="text-primary">
                 Logout
             </WButton>
         </WNavItem>
+        </>
     );
 };
 
