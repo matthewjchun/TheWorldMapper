@@ -1,11 +1,12 @@
 import Logo 							from '../navbar/Logo';
-// import Globe							from '../public'
+import Globe							from '../../globe.jpg';
 // import Login 							from '../modals/Login';
 // import Delete 							from '../modals/Delete';
 // import MainContents 					from '../main/MainContents';
 // import CreateAccount 					from '../modals/CreateAccount';
 import RegisterScreen					from '../accounts/RegisterScreen';
 import LoginScreen						from '../accounts/LoginScreen';
+import IntroScreen						from '../accounts/IntroScreen';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import * as mutations 					from '../../cache/mutations';
 // import SidebarContents 					from '../sidebar/SidebarContents';
@@ -41,7 +42,7 @@ const Homescreen = (props) => {
 	let SidebarData = [];
 	const [sortRule, setSortRule] = useState('unsorted'); // 1 is ascending, -1 desc
 	const [activeList, setActiveList] 		= useState({});
-	const [showDelete, toggleShowDelete] 	= useState(false);
+	// const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
 	const [showHome, toggleShowHome]		= useState(true);
@@ -242,6 +243,8 @@ const Homescreen = (props) => {
 		
 	}
 
+// 						{/* <img src={Globe}/> */}
+
 	return (
 		<WLayout wLayout="header-lside">
 			<WLHeader>
@@ -265,25 +268,34 @@ const Homescreen = (props) => {
 
 {/* GOTTA CHANGE THIS */}
 			<WLMain>
-				{
-					showHome ?
-						<div className="welcome-msg">
-						Welcome to the 
-						<br></br>
-						World Data Mapper
-						</div>
-						:
-						<></>
+				{ () => {
+					if(showHome){
+						console.log("hi")
+						if(auth){
+							return(<RegisterScreen/>)
+						} else{
+							console.log("what")
+							return(        
+								<div className="welcome-msg">
+        						<p>Welcome to the <br></br>World Data Mapper</p>
+        						</div>)
+						}
+					} else{
+						console.log("why")
+					}
+				}
 				}
 				{
+					// shows the registration screen, shown after clicking sign up
 					showCreate ?
 						<RegisterScreen setShowHome={setShowHome} setShowCreate={setShowCreate} fetchUser={props.fetchUser} />
 						:
 						<></>
 				}
 				{
+					// shows the login screen, shown after clicking login
 					showLogin ?
-						<LoginScreen setShowHome={setShowHome} setShowCreate={setShowCreate} fetchUser={props.fetchUser} />
+						<LoginScreen setShowHome={setShowHome} setShowLogin={setShowLogin} fetchUser={props.fetchUser} />
 						:
 						<></>
 				}

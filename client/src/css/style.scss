@@ -209,6 +209,7 @@ html, body {
 .modal-header {
     color: $text-color;
     font-size: 28px;
+    text-align: center;
 }
 
 .navbar-options {
@@ -236,5 +237,18 @@ html, body {
 .welcome-msg {
     font-size: 40px;
     color: white;
+}
 
+.login-text {
+    font-size: 24px;
+    color: white;
+    text-align: right;
+    padding-top: 10px;
+}
+
+.email-text {
+    font-size: 24px;
+    color: white;
+    text-align: left;
+    padding-top: 10px;
 }

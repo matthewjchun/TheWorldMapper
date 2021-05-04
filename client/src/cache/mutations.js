@@ -7,7 +7,6 @@ export const LOGIN = gql`
 			_id
 			name
 			password
-			initials
 		}
 	}
 `;
