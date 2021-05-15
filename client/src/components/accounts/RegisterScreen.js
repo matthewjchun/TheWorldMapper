@@ -38,7 +38,6 @@ const RegisterScreen = (props) => {
 				props.fetchUser();
 			}
             props.setShowHome(true);
-
 		};
 	};
 

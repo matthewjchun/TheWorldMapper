@@ -29,7 +29,7 @@ const LoginScreen = (props) => {
 			props.fetchUser();
 			// props.reloadTodos();
 			toggleLoading(false)
-			props.setShowLogin(false)
+			props.setShowHome(true)
 		};
 	};
 

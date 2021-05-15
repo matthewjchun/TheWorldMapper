@@ -34,6 +34,11 @@ const UpdateScreen = (props) => {
 		};
 	};
 
+    const userName = props.user.name
+    const userEmail = props.user.email
+
+    console.log()
+
 	return (
 		<WModal className="signup-modal"  cover="true" visible={props.setShowUpdate}>
 			<WMHeader  className="modal-header" onClose={() => props.setShowHome(true)}>
@@ -50,7 +55,7 @@ const UpdateScreen = (props) => {
                                 <WCol size="7">
                                     <WInput
 								    className="modal-input" onBlur={updateInput} name="name" labelAnimation="up"
-								    barAnimation="solid" labelText="Name" wType="outlined" inputType="text" C
+								    barAnimation="solid" value={userName} labelText="Name" wType="outlined" inputType="text" C
 							        />
                                 </WCol>
                             </WRow>
@@ -61,11 +66,10 @@ const UpdateScreen = (props) => {
                                 <WCol size="5">
                                     <div className="email-text"> Email Address: </div>
                                 </WCol>
-                                {/* <div className="modal-spacer">&nbsp;</div> */}
                                 <WCol size="7">
                                     <WInput 
                                         className="modal-input" onBlur={updateInput} name="email" labelAnimation="up" 
-                                        barAnimation="solid" labelText="*Enter Email Address Here*" wType="outlined" inputType="text" 
+                                        barAnimation="solid" value={userEmail} labelText="*Enter Email Address Here*" wType="outlined" inputType="text" 
                                     />
                                 </WCol>
                             </WRow>
@@ -94,7 +98,7 @@ const UpdateScreen = (props) => {
                 <div className="modal-spacer">&nbsp;</div>
                 <WCol size="4">
                     <WButton className="modal-button" onClick={handleUpdateAccount} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
-					    Submit
+					    Update
 				    </WButton>
                 </WCol>
                 <div className="modal-spacer">&nbsp;</div>
@@ -105,22 +109,7 @@ const UpdateScreen = (props) => {
                 </WCol>
                 <div className="modal-spacer">&nbsp;</div>
             </WRow>
-            <div className="modal-spacer">&nbsp;</div>
-
-			{/* <WMFooter> */}
-            {/* <WRow> */}
-                {/* <WCol size="6"> */}
-
-                {/* </WCol> */}
-                {/* <WCol size="6">
-                    <WButton className="modal-button" onClick={props.setShowHome(true)} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
-					Cancel
-				    </WButton>
-                </WCol>
-            </WRow> */}
-
-			{/* </WMFooter> */}
-			
+            <div className="modal-spacer">&nbsp;</div>		
 		</WModal>
 	);
 }

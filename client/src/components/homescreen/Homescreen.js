@@ -37,12 +37,12 @@ const Homescreen = (props) => {
 	const auth = props.user === null ? false : true;
 	let todolists 	= [];
 	let SidebarData = [];
-	const [sortRule, setSortRule] = useState('unsorted'); // 1 is ascending, -1 desc
+	// const [sortRule, setSortRule] = useState('unsorted'); // 1 is ascending, -1 desc
 	const [activeList, setActiveList] 		= useState({});
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
-	const [showHome, toggleShowHome]		= useState(true);
 	const [showUpdate, toggleShowUpdate]	= useState(false);
+	const [showHome, toggleShowHome]		= useState(true);
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
@@ -102,8 +102,6 @@ const Homescreen = (props) => {
 	// const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM, mutationOptions);
 	// const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	// const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
-
-
 	
 	// const tpsUndo = async () => {
 	// 	const ret = await props.tps.undoTransaction();
@@ -163,7 +161,6 @@ const Homescreen = (props) => {
 	// 	let transaction = new EditItem_Transaction(listID, itemID, field, prev, value, flag, UpdateTodoItemField);
 	// 	props.tps.addTransaction(transaction);
 	// 	tpsRedo();
-
 	// };
 
 	// const reorderItem = async (itemID, dir) => {
@@ -250,8 +247,6 @@ const Homescreen = (props) => {
 		
 	// }
 
-	console.log(props.user)
-
 	return (
 		<WLayout wLayout="header-lside">
 			<WLHeader>
@@ -276,12 +271,6 @@ const Homescreen = (props) => {
 
 {/* GOTTA CHANGE THIS */}
 			<WLMain>
-				{
-					auth ?
-						<MapScreen/>
-						:
-						<></>
-				}
 				{ 
 					showHome & !auth ?
 						<IntroScreen/>
@@ -303,59 +292,20 @@ const Homescreen = (props) => {
 						<></>
 				}
 				{
+					// shows the update screen, shown after clicking on the user name
 					showUpdate ?
 						<UpdateScreen setShowHome={setShowHome} setShowUpdate={setShowUpdate} fetchUser={props.fetchUser}
 						 user={props.user}/>
 						:
 						<></>
 				}
-			</WLMain>
-			{/* <WLSide side="left">
-				<WSidebar>
-					{
-						activeList ? 
-							<SidebarContents
-								listIDs={SidebarData} 				activeid={activeList._id} auth={auth}
-								handleSetActive={handleSetActive} 	createNewList={createNewList}
-								updateListField={updateListField} 	key={activeList._id}
-							/>
-							:
-							<></>
-					}
-				</WSidebar>
-			</WLSide> */}
-			{/* <WLMain>
 				{
-					activeList ? 
-					
-							<div className="container-secondary">
-								<MainContents
-									addItem={addItem} 				deleteItem={deleteItem}
-									editItem={editItem} 			reorderItem={reorderItem}
-									setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}
-									activeList={activeList} 		setActiveList={loadTodoList}
-									canUndo={canUndo} 				canRedo={canRedo}
-									sort={sort}
-								/>
-							</div>
+					showHome & auth ?
+						<MapScreen/>
 						:
-							<div className="container-secondary" />
+						<></>
 				}
-
-			</WLMain> */}
-
-			{/* {
-				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} setShowDelete={setShowDelete} />)
-			} */}
-
-			{/* {
-				showCreate && (<CreateAccount fetchUser={props.fetchUser} setShowCreate={setShowCreate} />)
-			}
-
-			{
-				showLogin && (<LoginScreen fetchUser={props.fetchUser} reloadTodos={refetch}setShowLogin={setShowLogin} />)
-			} */}
-
+			</WLMain>
 		</WLayout>
 	);
 };
