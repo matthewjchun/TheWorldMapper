@@ -31,7 +31,6 @@ const UpdateScreen = (props) => {
 				props.fetchUser();
 			}
             props.setShowHome(true);
-
 		};
 	};
 
