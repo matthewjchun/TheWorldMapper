@@ -1,13 +1,27 @@
 import React            from 'react';
+import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 
 const MapScreen = (props) => {
 
-    console.log("WHAAAT")
-
     return (
-        <div>
-            hi
-        </div>
+        <WLayout wLayout="header-side">
+            <WLHeader>
+                <div className='map-window'>
+                    <div className='map-head-spacer'></div>
+                    <div className="map-header">
+                    Your Maps
+                    </div>
+                </div>
+            </WLHeader>
+            <WLSide>
+                
+            </WLSide>
+            <WLMain>
+
+            </WLMain>
+
+        </WLayout>
+
     );
 };
 

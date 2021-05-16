@@ -234,3 +234,20 @@ html {
     padding-right: 25%;
     padding-top: 35%;
 }
+
+.map-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 70%;
+    background-color: salmon;
+}
+
+.map-header {
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    height: 10%;
+}

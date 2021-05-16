@@ -48,7 +48,9 @@ const LoginScreen = (props) => {
                         </WCol>
                         <div className="modal-spacer">&nbsp;</div>
                         <WCol size="7">
-                            <WInput className="modal-input" onBlur={updateInput} name='email' labelAnimation="up" barAnimation="solid" labelText="*Enter Email Here*" wType="outlined" inputType='text' />
+                            <WInput className="modal-input" onBlur={updateInput} name='email' labelAnimation="up" 
+							barAnimation="solid" labelText="*Enter Email Here*" wType="outlined" inputType='text' 
+							/>
                         </WCol>
                         </WRow>
 						

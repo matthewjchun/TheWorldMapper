@@ -10,6 +10,12 @@ const UpdateScreen = (props) => {
 	const [loading, toggleLoading] = useState(false);
     const [Update] = useMutation(UPDATE);
 
+    const userName = props.user.name
+    const userEmail = props.user.email
+
+    const [editingName, toggleNameEdit] = useState(false);
+    const [editingEmail, toggleEmailEdit] = useState(false);
+    const [editingPass, togglePassEdit] = useState(false);
 	
 	const updateInput = (e) => {
 		const { name, value } = e.target;
@@ -34,8 +40,7 @@ const UpdateScreen = (props) => {
 		};
 	};
 
-    const userName = props.user.name
-    const userEmail = props.user.email
+
 
     console.log()
 
@@ -55,7 +60,8 @@ const UpdateScreen = (props) => {
                                 <WCol size="7">
                                     <WInput
 								    className="modal-input" onBlur={updateInput} name="name" labelAnimation="up"
-								    barAnimation="solid" value={userName} labelText="Name" wType="outlined" inputType="text" C
+								    barAnimation="solid" value={userName} labelText="Name" wType="outlined" inputType="text" 
+                                    onChange={e => this.setState({inputValue: e.target.value})} C
 							        />
                                 </WCol>
                             </WRow>

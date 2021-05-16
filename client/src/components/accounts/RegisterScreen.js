@@ -1,5 +1,5 @@
 import React, { useState } 	from 'react';
-import { REGISTER, LOGOUT }			from '../../cache/mutations';
+import { REGISTER }			from '../../cache/mutations';
 import { useMutation }    	from '@apollo/client';
 
 import { WModal, WMHeader, WMMain, WMFooter, WButton, WInput, WRow } from 'wt-frontend';
@@ -9,7 +9,6 @@ const RegisterScreen = (props) => {
 	const [input, setInput] = useState({ email: '', password: '', name: '' });
 	const [loading, toggleLoading] = useState(false);
 	const [Register] = useMutation(REGISTER);
-    const [Logout] = useMutation(LOGOUT);
 
 	
 	const updateInput = (e) => {
@@ -17,6 +16,7 @@ const RegisterScreen = (props) => {
 		const updated = { ...input, [name]: value };
 		setInput(updated);
 	};
+
 
 	const handleCreateAccount = async (e) => {
 		for (let field in input) {

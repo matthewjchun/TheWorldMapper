@@ -7,7 +7,7 @@ import UpdateScreen						from '../accounts/UpdateScreen';
 import MapScreen						from '../main/MapScreen';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import * as mutations 					from '../../cache/mutations';
-import { GET_DB_TODOS } 				from '../../cache/queries';
+import { GET_DB_MAPS } 				from '../../cache/queries';
 import React, { useState } 				from 'react';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
@@ -46,7 +46,7 @@ const Homescreen = (props) => {
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
-	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
+	const { loading, error, data, refetch } = useQuery(GET_DB_MAPS);
 
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
@@ -89,7 +89,7 @@ const Homescreen = (props) => {
 	}
 
 	const mutationOptions = {
-		refetchQueries: [{ query: GET_DB_TODOS }], 
+		refetchQueries: [{ query: GET_DB_MAPS }], 
 		awaitRefetchQueries: true,
 		onCompleted: () => reloadList()
 	}
@@ -163,6 +163,12 @@ const Homescreen = (props) => {
 	// 	tpsRedo();
 	// };
 
+	// const editUser = async (field, value, prev) => {
+	// 	let flag = 0;
+	// 	if ()
+		
+	// };
+
 	// const reorderItem = async (itemID, dir) => {
 	// 	let listID = activeList._id;
 	// 	let transaction = new ReorderItems_Transaction(listID, itemID, dir, ReorderTodoItems);
@@ -230,6 +236,8 @@ const Homescreen = (props) => {
 		toggleShowCreate(false);
 		toggleShowUpdate(!showUpdate);
 	}
+
+
 
 	// const setShowDelete = () => {
 	// 	toggleShowCreate(false);
