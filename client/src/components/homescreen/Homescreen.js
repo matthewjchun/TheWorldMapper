@@ -35,10 +35,10 @@ const Homescreen = (props) => {
 	// document.onkeydown = keyCombination;
 
 	const auth = props.user === null ? false : true;
-	let todolists 	= [];
+	let maps 	= [];
 	let SidebarData = [];
 	// const [sortRule, setSortRule] = useState('unsorted'); // 1 is ascending, -1 desc
-	const [activeList, setActiveList] 		= useState({});
+	const [activeMap, setActiveMap] 		= useState({});
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
 	const [showUpdate, toggleShowUpdate]	= useState(false);
@@ -52,17 +52,17 @@ const Homescreen = (props) => {
 	if(error) { console.log(error, 'error'); }
 	if(data) { 
 		// Assign todolists 
-		for(let todo of data.getAllTodos) {
-			todolists.push(todo)
+		for(let todo of data.getAllMaps) {
+			maps.push(todo)
 		}
 		// if a list is selected, shift it to front of todolists
-		if(activeList._id) {
-			let selectedListIndex = todolists.findIndex(entry => entry._id === activeList._id);
-			let removed = todolists.splice(selectedListIndex, 1);
-			todolists.unshift(removed[0]);
+		if(activeMap._id) {
+			let selectedListIndex = maps.findIndex(entry => entry._id === activeMap._id);
+			let removed = maps.splice(selectedListIndex, 1);
+			maps.unshift(removed[0]);
 		}
 		// create data for sidebar links
-		for(let todo of todolists) {
+		for(let todo of maps) {
 			if(todo) {
 				SidebarData.push({_id: todo._id, name: todo.name});
 			}	
@@ -73,19 +73,18 @@ const Homescreen = (props) => {
 	
 	// NOTE: might not need to be async
 	const reloadList = async () => {
-		if (activeList._id) {
-			let tempID = activeList._id;
-			let list = todolists.find(list => list._id === tempID);
-			setActiveList(list);
+		if (activeMap._id) {
+			let tempID = activeMap._id;
+			let list = maps.find(list => list._id === tempID);
+			setActiveMap(list);
 		}
 	}
 
-	const loadTodoList = (list) => {
+	const loadMap = (list) => {
 		props.tps.clearAllTransactions();
 		setCanUndo(props.tps.hasTransactionToUndo());
 		setCanRedo(props.tps.hasTransactionToRedo());
-		setActiveList(list);
-
+		setActiveMap(list);
 	}
 
 	const mutationOptions = {
@@ -101,6 +100,7 @@ const Homescreen = (props) => {
 	// const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM, mutationOptions);
 	// const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM, mutationOptions);
 	// const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
+	const [AddMap]					= useMutation(mutations.ADD_MAP);
 	// const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
 	
 	// const tpsUndo = async () => {
@@ -190,6 +190,20 @@ const Homescreen = (props) => {
 	// 	if(data) {
 	// 		loadTodoList(data.addTodolist);
 	// 	} 
+
+	const createNewMap = async () => {
+		let map = {
+			_id: '',
+			name: 'Untitled',
+			owner: props.user._id,
+			regions: []
+		}
+		const { data } = await AddMap({ variables: { map: map }, refetchQueries: [{ query: GET_DB_MAPS }] });
+		// sets the newly created map as the active map
+		if(data) {
+			loadMap(data.Map);
+		}
+	}
 		
 	// };
 	// const deleteList = async (_id) => {
@@ -269,7 +283,7 @@ const Homescreen = (props) => {
 							fetchUser={props.fetchUser} 	auth={auth} 
 							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
 							setShowHome={setShowHome}		setShowUpdate={setShowUpdate}
-							reloadTodos={refetch} 			setActiveList={loadTodoList}
+							reloadTodos={refetch} 			setActiveList={loadMap}
 							user={props.user}
 						/>
 					</ul>
