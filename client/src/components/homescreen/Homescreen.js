@@ -1,5 +1,5 @@
 import Logo 							from '../navbar/Logo';
-import Globe							from '../../globe.jpg';
+import Globe							from '../../globe.png';
 import RegisterScreen					from '../accounts/RegisterScreen';
 import LoginScreen						from '../accounts/LoginScreen';
 import IntroScreen						from '../accounts/IntroScreen';
@@ -298,7 +298,7 @@ const Homescreen = (props) => {
 			<WLMain>
 				{ 
 					showHome & !auth ?
-						<IntroScreen/>
+						<IntroScreen globe={Globe}/>
 						:
 						<></>
 				}

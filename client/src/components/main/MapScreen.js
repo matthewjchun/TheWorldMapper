@@ -16,9 +16,9 @@ const MapScreen = (props) => {
             </WLHeader>
             <WRow>
                 <WCol size="6">
-                    <div>
+                    {/* <div>
                         hi
-                    </div>
+                    </div> */}
                     <MapSide listIDs={props.listIDs} activeid={props.activeid} auth={props.auth} handleSetActive={props.handleSetActive}
 					    createNewMap={props.createNewMap} updateMapField={props.updateMapField} key={props.key}/>
                 </WCol>
@@ -35,19 +35,6 @@ const MapScreen = (props) => {
                 </WCol>
 
             </WRow>
-            {/* <WLSide side="left">
-
-            </WLSide>
-            <WLSide side="right">
-
-            </WLSide> */}
-            {/* <WLMain>
-                <div>
-                    hi
-                </div>
-                <MapSide listIDs={props.listIDs} activeid={props.activeid} auth={props.auth} handleSetActive={props.handleSetActive}
-					createNewMap={props.createNewMap} updateMapField={props.updateMapField} key={props.key}/>
-            </WLMain> */}
 
         </WLayout>
         </div>
