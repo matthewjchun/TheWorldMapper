@@ -97,27 +97,28 @@ const Homescreen = (props) => {
 	// const [sortTodoItems] 		= useMutation(mutations.SORT_ITEMS, mutationOptions);
 	// const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD, mutationOptions);
 	// const [UpdateTodolistField] 	= useMutation(mutations.UPDATE_TODOLIST_FIELD, mutationOptions);
+	const [UpdateMapField]			= useMutation(mutations.UPDATE_MAP_FIELD, mutationOptions);
 	// const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM, mutationOptions);
 	// const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM, mutationOptions);
 	// const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	const [AddMap]					= useMutation(mutations.ADD_MAP);
 	// const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
 	
-	// const tpsUndo = async () => {
-	// 	const ret = await props.tps.undoTransaction();
-	// 	if(ret) {
-	// 		setCanUndo(props.tps.hasTransactionToUndo());
-	// 		setCanRedo(props.tps.hasTransactionToRedo());
-	// 	}
-	// }
+	const tpsUndo = async () => {
+		const ret = await props.tps.undoTransaction();
+		if(ret) {
+			setCanUndo(props.tps.hasTransactionToUndo());
+			setCanRedo(props.tps.hasTransactionToRedo());
+		}
+	}
 
-	// const tpsRedo = async () => {
-	// 	const ret = await props.tps.doTransaction();
-	// 	if(ret) {
-	// 		setCanUndo(props.tps.hasTransactionToUndo());
-	// 		setCanRedo(props.tps.hasTransactionToRedo());
-	// 	}
-	// }
+	const tpsRedo = async () => {
+		const ret = await props.tps.doTransaction();
+		if(ret) {
+			setCanUndo(props.tps.hasTransactionToUndo());
+			setCanRedo(props.tps.hasTransactionToRedo());
+		}
+	}
 
 	// const addItem = async () => {
 	// 	let list = activeList;
@@ -198,7 +199,9 @@ const Homescreen = (props) => {
 			owner: props.user._id,
 			regions: []
 		}
+		console.log("its stopping here")
 		const { data } = await AddMap({ variables: { map: map }, refetchQueries: [{ query: GET_DB_MAPS }] });
+		console.log("its reaching here")
 		// sets the newly created map as the active map
 		if(data) {
 			loadMap(data.Map);
@@ -211,17 +214,17 @@ const Homescreen = (props) => {
 	// 	loadTodoList({});
 	// };
 
-	// const updateListField = async (_id, field, value, prev) => {
-	// 	let transaction = new UpdateListField_Transaction(_id, field, prev, value, UpdateTodolistField);
-	// 	props.tps.addTransaction(transaction);
-	// 	tpsRedo();
+	const updateListField = async (_id, field, value, prev) => {
+		let transaction = new UpdateListField_Transaction(_id, field, prev, value, UpdateMapField);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
 
-	// };
+	};
 
-	// const handleSetActive = (_id) => {
-	// 	const selectedList = todolists.find(todo => todo._id === _id);
-	// 	loadTodoList(selectedList);
-	// };
+	const handleSetActive = (_id) => {
+		const selectedList = maps.find(todo => todo._id === _id);
+		loadMap(selectedList);
+	};
 
 	const setShowHome = () => {
 		toggleShowCreate(false);
@@ -323,7 +326,8 @@ const Homescreen = (props) => {
 				}
 				{
 					showHome & auth ?
-						<MapScreen/>
+						<MapScreen listIDs={SidebarData} activeid={activeMap.id} auth={auth} handleSetActive={handleSetActive}
+							createNewMap={createNewMap} updateMapField={updateListField} key={activeMap.id} />
 						:
 						<></>
 				}

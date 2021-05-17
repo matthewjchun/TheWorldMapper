@@ -13,12 +13,12 @@ module.exports = {
             @returns {array} an array of maps objects on success, and an empty array on failure
         **/
         getAllMaps: async (_, __, { req }) => {
-            const _id = new ObjectId(re.userId);
+            const _id = new ObjectId(req.userId);
             if(!_id) {return([])};
-            const maps = await Map.find({ownder: _id})
+            const maps = await Map.find({owner: _id})
             // .sort({updatedAt: 'descending'});
             if(maps) {
-                return (maps);
+				return (maps);
             }
         },
         // /** 
@@ -60,9 +60,10 @@ module.exports = {
 			@returns {string} the objectID of the todolist or an error message
 		**/
 		addMap: async (_, args) => {
+			console.log("bro")
 			const { map } = args;
 			const objectId = new ObjectId();
-			const { name, owner } = map;
+			const { id, name, owner } = map;
 			const newMap = new Map({
 				_id: objectId,
 				name: name,
@@ -104,17 +105,17 @@ module.exports = {
 	// 		if(deleted) return true;
 	// 		else return false;
 	// 	},
-	// 	/** 
-	// 	 	@param 	 {object} args - a todolist objectID, field, and the update value
-	// 		@returns {boolean} true on successful update, false on failure
-	// 	**/
-	// 	updateTodolistField: async (_, args) => {
-	// 		const { field, value, _id } = args;
-	// 		const objectId = new ObjectId(_id);
-	// 		const updated = await Todolist.updateOne({_id: objectId}, {[field]: value});
-	// 		if(updated) return value;
-	// 		else return "";
-	// 	},
+		/** 
+		 	@param 	 {object} args - a todolist objectID, field, and the update value
+			@returns {boolean} true on successful update, false on failure
+		**/
+		updateMapField: async (_, args) => {
+			const { field, value, _id } = args;
+			const objectId = new ObjectId(_id);
+			const updated = await Map.updateOne({_id: objectId}, {[field]: value});
+			if(updated) return value;
+			else return "";
+		},
 	// 	/** 
 	// 		@param	 {object} args - a todolist objectID, an item objectID, field, and
 	// 								 update value. Flag is used to interpret the completed 
@@ -204,89 +205,3 @@ module.exports = {
 
 	}
 }
-
-// module.exports = {
-//     Query: {
-//         /** 
-//             @param   {object} req - the request object containing a user id
-//             @returns {array} an array of maps objects on success, and an empty array on failure
-//         **/
-//         getAllMaps: async (_, __, { req }) => {
-
-//         },
-
-//         /** 
-//             @param   {object} args - a map id
-//             @returns {object} a map on success and an empty object on failure
-//         **/
-//         getMapById: async (_, args) => {},
-//     },
-//     Mutation: {
-//         /** 
-//             @param   {object} args - a map id and an empty region object
-//             @returns {string} the objectID of the region or an error message
-//         **/
-//         addRegion: async(_, args) => {},
-
-//         /**
-//          * 
-//          * @param {object} args - a region id and an empty landmark object 
-//          * @returns {string} the objectID of the landmark or an error message 
-//          */
-//         addLandmark: async(_, args) => {},
-
-//         /** 
-//             @param   {object} args - an empty map object
-//             @returns {string} the objectID of the map or an error message
-//         **/
-//         addMap: async (_, args) => {},
-
-//         /** 
-//             @param   {object} args - a map objectID and region objectID
-//             @returns {array} the updated region array on success or the initial 
-//                              array on failure
-//         **/
-//         deleteRegion: async (_, args) => {},
-
-//         /**
-//          * @param {object} args - a region objectID and landmark objectID
-//          * @returns {array} the updated landmark array on success or the initial
-//          *                  array on failure
-//          */
-//         deleteLandmark: async (_, args) => {},
-
-//         /** 
-//             @param   {object} args - a map objectID 
-//             @returns {boolean} true on successful delete, false on failure
-//         **/
-//         deleteMap: async (_, args) => {},
-
-//         /** 
-//             @param   {object} args - a map objectID, field, and the update value
-//             @returns {boolean} true on successful update, false on failure
-//         **/
-//         updateMapField: async (_, args) => {},
-
-//         /** 
-//             @param   {object} args - a map objectID, a region objectID, field, and
-//                                      update value.
-//             @returns {array} the updated region array on success, or the initial region array on failure
-//         **/
-//         updateRegionField: async (_, args) => {},
-
-//         /**
-//          * 
-//          * @param {object} args - a region objectID, a landmark objectID, field, and 
-//          *                          update value
-//          * @returns {array} the updated landmark array on success, or the initial landmark array on failure 
-//          */
-//         updateLandmarkField: async (_, args) => {},
-
-//         /**
-//             @param   {object} args - contains map id
-//             @returns {array} the reordered region array on success, or initial ordering on failure
-//         **/
-//         sortTable: async (_, args) => {}
-
-//     }
-// }

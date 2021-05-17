@@ -4,13 +4,15 @@ import { useMutation, useApolloClient }     from '@apollo/client';
 import { WButton, WNavItem }                from 'wt-frontend';
 
 const LoggedIn = (props) => {
-    console.log(props)
     const client = useApolloClient();
 	const [Logout] = useMutation(LOGOUT);
 
     const handleLogout = async (e) => {
         Logout();
         const { data } = await props.fetchUser();
+        if(data){
+            
+        }
         // if (data) {
         //     let reset = await client.resetStore();
         // }

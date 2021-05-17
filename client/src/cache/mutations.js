@@ -95,7 +95,6 @@ export const ADD_MAP = gql`
 	mutation AddMap($map: MapInput!) {
 		addMap(map: $map) {
 			_id
-			id
 			name
 			owner
 		}
@@ -117,8 +116,8 @@ export const ADD_MAP = gql`
 // 	}
 // `;
 
-// export const UPDATE_TODOLIST_FIELD = gql`
-// 	mutation UpdateTodolistField($_id: String!, $field: String!, $value: String!) {
-// 		updateTodolistField(_id: $_id, field: $field, value: $value)
-// 	}
-// `;
+export const UPDATE_MAP_FIELD = gql`
+	mutation UpdateMapField($_id: String!, $field: String!, $value: String!) {
+		updateMapField(_id: $_id, field: $field, value: $value)
+	}
+`;
