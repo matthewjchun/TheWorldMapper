@@ -56,11 +56,11 @@ const Homescreen = (props) => {
 			maps.push(todo)
 		}
 		// if a list is selected, shift it to front of todolists
-		if(activeMap._id) {
-			let selectedListIndex = maps.findIndex(entry => entry._id === activeMap._id);
-			let removed = maps.splice(selectedListIndex, 1);
-			maps.unshift(removed[0]);
-		}
+		// if(activeMap._id) {
+		// 	let selectedListIndex = maps.findIndex(entry => entry._id === activeMap._id);
+		// 	let removed = maps.splice(selectedListIndex, 1);
+		// 	maps.unshift(removed[0]);
+		// }
 		// create data for sidebar links
 		for(let todo of maps) {
 			if(todo) {
@@ -196,12 +196,9 @@ const Homescreen = (props) => {
 		let map = {
 			_id: '',
 			name: 'Untitled',
-			owner: props.user._id,
-			regions: []
+			owner: props.user._id
 		}
-		console.log("its stopping here")
 		const { data } = await AddMap({ variables: { map: map }, refetchQueries: [{ query: GET_DB_MAPS }] });
-		console.log("its reaching here")
 		// sets the newly created map as the active map
 		if(data) {
 			loadMap(data.Map);
@@ -326,8 +323,8 @@ const Homescreen = (props) => {
 				}
 				{
 					showHome & auth ?
-						<MapScreen listIDs={SidebarData} activeid={activeMap.id} auth={auth} handleSetActive={handleSetActive}
-							createNewMap={createNewMap} updateMapField={updateListField} key={activeMap.id} />
+						<MapScreen listIDs={SidebarData} auth={auth} handleSetActive={handleSetActive}
+							createNewMap={createNewMap} updateMapField={updateListField} />
 						:
 						<></>
 				}

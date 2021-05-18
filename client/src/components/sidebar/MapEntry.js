@@ -2,7 +2,7 @@ import React, { useState }  from 'react';
 import { WNavItem, WInput } from 'wt-frontend';
 
 const MapEntry = (props) => {
-    const [editing, toggleEditing] = useState(true);
+    const [editing, toggleEditing] = useState(false);
     const [preEdit, setPreEdit] = useState(props.name);
     const handleEditing = (e) => {
         e.stopPropagation();
@@ -16,11 +16,11 @@ const MapEntry = (props) => {
         props.updateListField(props._id, name, value, preEdit);
     };
 
-    const entryStyle = props._id === props.activeid ? 'list-item-active' : 'list-item ';
+    // const entryStyle = props._id === props.activeid ? 'list-item-active' : 'list-item ';
     
     return (
         <WNavItem 
-            className={entryStyle} onDoubleClick={handleEditing} 
+            className='list-item' onDoubleClick={handleEditing} 
             onClick={() => { props.handleSetActive(props._id) }} 
         >
             {

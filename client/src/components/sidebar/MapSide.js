@@ -11,7 +11,7 @@ const MapSide = (props) => {
                 props.listIDs &&
                 props.listIDs.map(entry => (
                     <MapEntry
-                        handleSetActive={props.handleSetActive} activeid={props.activeid}
+                        handleSetActive={props.handleSetActive}
                         id={tempID++} key={entry._id+props.activeid} name={entry.name} _id={entry._id}
                         updateListField={props.updateMapField}
                     />

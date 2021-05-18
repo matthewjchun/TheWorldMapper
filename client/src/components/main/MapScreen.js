@@ -15,11 +15,11 @@ const MapScreen = (props) => {
                 </div>
             </WLHeader>
             <WRow>
-                <WCol size="6">
+                <WCol className="scroll" size="6">
                     {/* <div>
                         hi
                     </div> */}
-                    <MapSide listIDs={props.listIDs} activeid={props.activeid} auth={props.auth} handleSetActive={props.handleSetActive}
+                    <MapSide listIDs={props.listIDs} auth={props.auth} handleSetActive={props.handleSetActive}
 					    createNewMap={props.createNewMap} updateMapField={props.updateMapField} key={props.key}/>
                 </WCol>
                 <WCol size="6">
