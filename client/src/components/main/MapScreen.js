@@ -16,12 +16,9 @@ const MapScreen = (props) => {
             </WLHeader>
             <WRow>
                 <WCol className="scroll" size="6">
-                    {/* <div>
-                        hi
-                    </div> */}
                     <MapSide listIDs={props.listIDs} auth={props.auth} handleSetActive={props.handleSetActive}
 					    createNewMap={props.createNewMap} updateMapField={props.updateMapField} key={props.key} 
-                        setShowDelete={props.setShowDelete} />
+                        setShowDelete={props.setShowDelete} setShowRegion={props.setShowRegion}/>
                 </WCol>
                 <WCol size="6">
                     <img src={Globe} className='map-globe'></img>

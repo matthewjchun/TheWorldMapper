@@ -6,6 +6,7 @@ import IntroScreen						from '../accounts/IntroScreen';
 import UpdateScreen						from '../accounts/UpdateScreen';
 import Delete							from '../modals/Delete';
 import MapScreen						from '../main/MapScreen';
+import RegionSpreadsheet				from '../main/RegionSpreadsheet';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import * as mutations 					from '../../cache/mutations';
 import { GET_DB_MAPS } 				from '../../cache/queries';
@@ -45,6 +46,7 @@ const Homescreen = (props) => {
 	const [showUpdate, toggleShowUpdate]	= useState(false);
 	const [showDelete, toggleShowDelete]	= useState(false);
 	const [showHome, toggleShowHome]		= useState(true);
+	const [showRegion, toggleShowRegion]	= useState(false);
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
@@ -226,11 +228,21 @@ const Homescreen = (props) => {
 		loadMap(selectedList);
 	};
 
+	const setShowRegion = () => {
+		toggleShowRegion(!showRegion);
+		toggleShowCreate(false);
+		toggleShowLogin(false);
+		toggleShowUpdate(false);
+		toggleShowDelete(false);
+		toggleShowHome(false);
+	}
+
 	const setShowHome = () => {
 		toggleShowCreate(false);
 		toggleShowLogin(false);
 		toggleShowUpdate(false);
 		toggleShowDelete(false);
+		toggleShowRegion(false);
 		toggleShowHome(true);
 	}
 
@@ -239,6 +251,7 @@ const Homescreen = (props) => {
 		toggleShowCreate(false);
 		toggleShowUpdate(false);
 		toggleShowDelete(false);
+		toggleShowRegion(false);
 		toggleShowLogin(!showLogin);
 	};
 
@@ -247,6 +260,7 @@ const Homescreen = (props) => {
 		toggleShowLogin(false);
 		toggleShowUpdate(false);
 		toggleShowDelete(false);
+		toggleShowRegion(false);
 		toggleShowCreate(!showCreate);
 	};
 
@@ -255,6 +269,7 @@ const Homescreen = (props) => {
 		toggleShowLogin(false);
 		toggleShowCreate(false);
 		toggleShowDelete(false);
+		toggleShowRegion(false);
 		toggleShowUpdate(!showUpdate);
 	}
 
@@ -330,7 +345,15 @@ const Homescreen = (props) => {
 				{
 					showHome & auth ?
 						<MapScreen listIDs={SidebarData} auth={auth} handleSetActive={handleSetActive}
-							createNewMap={createNewMap} updateMapField={updateListField} setShowDelete={setShowDelete}/>
+							createNewMap={createNewMap} updateMapField={updateListField} setShowDelete={setShowDelete}
+							setShowRegion={setShowRegion}	
+							/>
+						:
+						<></>
+				}
+				{
+					showRegion ?
+						<RegionSpreadsheet/>
 						:
 						<></>
 				}

@@ -30,7 +30,7 @@ const MapEntry = (props) => {
                             />
                         :   <div>
                             <div className='map-entry'>
-                                <p className='list-text'>{props.name}</p>
+                                <p className='list-text' onClick={props.setShowRegion}>{props.name}</p>
                                 <WButton onClick={props.setShowDelete} wType="texted" className='table-header-button' clickAnimation={props.disabled ? "" : "ripple-light" }>
                                 <i className="material-icons">delete_outline</i>
                                 </WButton>
