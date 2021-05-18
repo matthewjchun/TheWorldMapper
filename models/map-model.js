@@ -15,7 +15,7 @@ const mapSchema = new Schema(
             type: String,
             required: true
         },
-        // regions: [Region],
+        regions: [Region],
     },
 );
 

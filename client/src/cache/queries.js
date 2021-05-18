@@ -16,6 +16,14 @@ export const GET_DB_MAPS = gql`
 			_id
 			name
 			owner
+			regions {
+				_id 
+				parent
+				name
+				capital
+				leader
+				flag
+			}
 		}
 	}
 `;

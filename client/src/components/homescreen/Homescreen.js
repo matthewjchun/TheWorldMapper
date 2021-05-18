@@ -21,19 +21,19 @@ import { UpdateListField_Transaction,
 
 const Homescreen = (props) => {
 
-	// const keyCombination = (e, callback) => {
-	// 	if(e.key === 'z' && e.ctrlKey) {
-	// 		if(props.tps.hasTransactionToUndo()) {
-	// 			tpsUndo();
-	// 		}
-	// 	}
-	// 	else if (e.key === 'y' && e.ctrlKey) { 
-	// 		if(props.tps.hasTransactionToRedo()) {
-	// 			tpsRedo();
-	// 		}
-	// 	}
-	// }
-	// document.onkeydown = keyCombination;
+	const keyCombination = (e, callback) => {
+		if(e.key === 'z' && e.ctrlKey) {
+			if(props.tps.hasTransactionToUndo()) {
+				tpsUndo();
+			}
+		}
+		else if (e.key === 'y' && e.ctrlKey) { 
+			if(props.tps.hasTransactionToRedo()) {
+				tpsRedo();
+			}
+		}
+	}
+	document.onkeydown = keyCombination;
 
 	const auth = props.user === null ? false : true;
 	let maps 	= [];
@@ -199,7 +199,8 @@ const Homescreen = (props) => {
 		let map = {
 			_id: '',
 			name: 'Untitled',
-			owner: props.user._id
+			owner: props.user._id,
+			regions: [],
 		}
 		const { data } = await AddMap({ variables: { map: map }, refetchQueries: [{ query: GET_DB_MAPS }] });
 		// sets the newly created map as the active map

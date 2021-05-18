@@ -97,18 +97,17 @@ export const ADD_MAP = gql`
 			_id
 			name
 			owner
+			regions{
+				_id 
+				parent
+				name
+				capital
+				leader
+				flag
+			}
 		}
 	}
 `;
-//			sortRule
-// sortDirection
-// regions {
-// 	_id
-// 	description
-// 	due_date
-// 	assigned_to
-// 	completed
-// }
 
 export const DELETE_MAP = gql`
 	mutation DeleteMap($_id: String!) {

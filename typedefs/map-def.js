@@ -5,6 +5,16 @@ const typeDefs = gql `
         _id: String!
         name: String!
         owner: String!
+        regions: [Region]
+    }
+    type Region {
+        _id: String!
+        parent: String!
+        name: String!
+        capital: String!
+        leader: String!
+        flag: String!
+
     }
     extend type Query {
         getAllMaps: [Map]
@@ -24,49 +34,34 @@ const typeDefs = gql `
         _id: String
         name: String
         owner: String
+        regions: [RegionInput]
+    }
+    input RegionInput {
+        _id: String
+        parent: String
+        name: String
+        capital: String
+        leader: String
+        flag: String
     }
 `;
 
 module.exports = { typeDefs: typeDefs }
 
 
-// regions: [RegionInput]
 
-
-
-// //     regions: [Region]
-// // }
-// // type Region {
-// //     _id: String!
-// //     id: Int!
-// //     parent: String!
-// //     name: String!
-// //     capital: String!
-// //     leader: String!
-// //     flag: String!
-// //     landmarks: [Landmark]
-// // }
-// // type Landmark {
-// //     _id: String!
-// //     id: Int!
-// //     parent: String!
-// //     name: String!
-// // }
-
-
-
-
-// input RegionInput {
-//     _id: String
-//     id: Int
-//     parent: String
-//     name: String
-//     capital: String
-//     leader: String
-//     flag: String
-//     landmarks: [LandmarkInput]
-
+// landmarks: [LandmarkInput]
+// type Landmark {
+//     _id: String!
+//     id: Int!
+//     parent: String!
+//     name: String!
 // }
+
+// landmarks: [Landmark]
+
+
+
 // input LandmarkInput {
 //     _id: String
 //     id: Int

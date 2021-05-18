@@ -63,12 +63,12 @@ module.exports = {
 			console.log("bro")
 			const { map } = args;
 			const objectId = new ObjectId();
-			const { id, name, owner } = map;
+			const { id, name, owner, regions } = map;
 			const newMap = new Map({
 				_id: objectId,
 				name: name,
 				owner: owner,
-				// regions: regions,
+				regions: regions,
 				// sortRule: sortRule,
 				// sortDirection: sortDirection,
 			});
