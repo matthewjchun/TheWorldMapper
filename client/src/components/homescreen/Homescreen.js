@@ -231,7 +231,7 @@ const Homescreen = (props) => {
 		toggleShowLogin(false);
 		toggleShowUpdate(false);
 		toggleShowDelete(false);
-		toggleShowHome(!showHome);
+		toggleShowHome(true);
 	}
 
 	const setShowLogin = () => {
@@ -278,7 +278,7 @@ const Homescreen = (props) => {
 				<WNavbar color="colored">
 					<ul>
 						<WNavItem>
-							<Logo className='logo' />
+							<Logo className='logo' setShowHome={setShowHome}/>
 						</WNavItem>
 					</ul>
 					<ul>
