@@ -13,7 +13,7 @@ const MapSide = (props) => {
                     <MapEntry
                         handleSetActive={props.handleSetActive}
                         id={tempID++} key={entry._id+props.activeid} name={entry.name} _id={entry._id}
-                        updateListField={props.updateMapField}
+                        updateListField={props.updateMapField} setShowDelete={props.setShowDelete}
                     />
                 ))
             }

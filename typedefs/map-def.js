@@ -13,6 +13,7 @@ const typeDefs = gql `
     extend type Mutation {
         addMap(map: MapInput!): Map
         updateMapField(_id: String!, field: String!, value: String!): String
+        deleteMap(_id: String!): Boolean
     }
     input FieldInput {
         _id: String
@@ -83,7 +84,7 @@ module.exports = { typeDefs: typeDefs }
 
 // //                 // deleteRegion(regionId: String!, _id: String!): [Region]     
 // //         // deleteLandmark(landmarkId: String!, _id: String!): [Landmark]
-// //         // deleteMap(_id: String!): Boolean
+
 
 // //         // updateRegionField(regionId: String!, _id: String!, field: String!, value: String!): [Region]
 // //         // updateLandmarkField(landmarkId: String!, _id: String!, field: String!, value: String!): [Landmark]

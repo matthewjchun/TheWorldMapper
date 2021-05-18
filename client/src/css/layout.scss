@@ -102,6 +102,12 @@ html {
 .table-header-button {
     padding: 0;
     margin-left: 36px;
+    color: black;
+}
+
+.table-header-button:hover{
+    cursor: pointer;
+    color: gray;
 }
 
 .table-header-button-disabled{
@@ -278,4 +284,10 @@ html {
 .scroll {
     overflow-y: auto;
     height: 90%;
+}
+
+.map-entry {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

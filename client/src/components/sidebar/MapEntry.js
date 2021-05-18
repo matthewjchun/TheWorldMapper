@@ -1,5 +1,5 @@
 import React, { useState }  from 'react';
-import { WNavItem, WInput } from 'wt-frontend';
+import { WNavItem, WInput, WButton } from 'wt-frontend';
 
 const MapEntry = (props) => {
     const [editing, toggleEditing] = useState(false);
@@ -28,9 +28,15 @@ const MapEntry = (props) => {
                                 onKeyDown={(e) => {if(e.keyCode === 13) handleSubmit(e)}}
                                 name='name' onBlur={handleSubmit} autoFocus={true} defaultValue={props.name} 
                             />
-                        :   <div className='list-text'>
-                                {props.name}
+                        :   <div>
+                            <div className='map-entry'>
+                                <p className='list-text'>{props.name}</p>
+                                <WButton onClick={props.setShowDelete} wType="texted" className='table-header-button' clickAnimation={props.disabled ? "" : "ripple-light" }>
+                                <i className="material-icons">delete_outline</i>
+                                </WButton>
                             </div>
+                        </div>
+
             }
         </WNavItem>
     );

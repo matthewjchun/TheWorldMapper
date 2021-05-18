@@ -94,17 +94,17 @@ module.exports = {
 	// 		else return (found.items);
 
 	// 	},
-	// 	/** 
-	// 	 	@param 	 {object} args - a todolist objectID 
-	// 		@returns {boolean} true on successful delete, false on failure
-	// 	**/
-	// 	deleteTodolist: async (_, args) => {
-	// 		const { _id } = args;
-	// 		const objectId = new ObjectId(_id);
-	// 		const deleted = await Todolist.deleteOne({_id: objectId});
-	// 		if(deleted) return true;
-	// 		else return false;
-	// 	},
+		/** 
+		 	@param 	 {object} args - a todolist objectID 
+			@returns {boolean} true on successful delete, false on failure
+		**/
+		deleteMap: async (_, args) => {
+			const { _id } = args;
+			const objectId = new ObjectId(_id);
+			const deleted = await Map.deleteOne({_id: objectId});
+			if(deleted) return true;
+			else return false;
+		},
 		/** 
 		 	@param 	 {object} args - a todolist objectID, field, and the update value
 			@returns {boolean} true on successful update, false on failure

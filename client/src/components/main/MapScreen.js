@@ -20,7 +20,8 @@ const MapScreen = (props) => {
                         hi
                     </div> */}
                     <MapSide listIDs={props.listIDs} auth={props.auth} handleSetActive={props.handleSetActive}
-					    createNewMap={props.createNewMap} updateMapField={props.updateMapField} key={props.key}/>
+					    createNewMap={props.createNewMap} updateMapField={props.updateMapField} key={props.key} 
+                        setShowDelete={props.setShowDelete} />
                 </WCol>
                 <WCol size="6">
                     <img src={Globe} className='map-globe'></img>

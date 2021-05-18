@@ -4,6 +4,7 @@ import RegisterScreen					from '../accounts/RegisterScreen';
 import LoginScreen						from '../accounts/LoginScreen';
 import IntroScreen						from '../accounts/IntroScreen';
 import UpdateScreen						from '../accounts/UpdateScreen';
+import Delete							from '../modals/Delete';
 import MapScreen						from '../main/MapScreen';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import * as mutations 					from '../../cache/mutations';
@@ -42,6 +43,7 @@ const Homescreen = (props) => {
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
 	const [showUpdate, toggleShowUpdate]	= useState(false);
+	const [showDelete, toggleShowDelete]	= useState(false);
 	const [showHome, toggleShowHome]		= useState(true);
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
@@ -56,11 +58,11 @@ const Homescreen = (props) => {
 			maps.push(todo)
 		}
 		// if a list is selected, shift it to front of todolists
-		// if(activeMap._id) {
-		// 	let selectedListIndex = maps.findIndex(entry => entry._id === activeMap._id);
-		// 	let removed = maps.splice(selectedListIndex, 1);
-		// 	maps.unshift(removed[0]);
-		// }
+		if(activeMap) {
+			let selectedListIndex = maps.findIndex(entry => entry._id === activeMap._id);
+			let removed = maps.splice(selectedListIndex, 1);
+			maps.unshift(removed[0]);
+		}
 		// create data for sidebar links
 		for(let todo of maps) {
 			if(todo) {
@@ -72,8 +74,8 @@ const Homescreen = (props) => {
 
 	
 	// NOTE: might not need to be async
-	const reloadList = async () => {
-		if (activeMap._id) {
+	const reloadMap = async () => {
+		if (activeMap) {
 			let tempID = activeMap._id;
 			let list = maps.find(list => list._id === tempID);
 			setActiveMap(list);
@@ -90,7 +92,7 @@ const Homescreen = (props) => {
 	const mutationOptions = {
 		refetchQueries: [{ query: GET_DB_MAPS }], 
 		awaitRefetchQueries: true,
-		onCompleted: () => reloadList()
+		onCompleted: () => reloadMap()
 	}
 
 	// const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS, mutationOptions);
@@ -102,6 +104,7 @@ const Homescreen = (props) => {
 	// const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM, mutationOptions);
 	// const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	const [AddMap]					= useMutation(mutations.ADD_MAP);
+	const [DeleteMap]				= useMutation(mutations.DELETE_MAP);
 	// const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
 	
 	const tpsUndo = async () => {
@@ -205,11 +208,10 @@ const Homescreen = (props) => {
 		}
 	}
 		
-	// };
-	// const deleteList = async (_id) => {
-	// 	DeleteTodolist({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_TODOS }] });
-	// 	loadTodoList({});
-	// };
+	const deleteMap = async (_id) => {
+		DeleteMap({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_MAPS }] });
+		loadMap({});
+	};
 
 	const updateListField = async (_id, field, value, prev) => {
 		let transaction = new UpdateListField_Transaction(_id, field, prev, value, UpdateMapField);
@@ -227,6 +229,7 @@ const Homescreen = (props) => {
 		toggleShowCreate(false);
 		toggleShowLogin(false);
 		toggleShowUpdate(false);
+		toggleShowDelete(false);
 		toggleShowHome(!showHome);
 	}
 
@@ -234,6 +237,7 @@ const Homescreen = (props) => {
 		toggleShowHome(false);
 		toggleShowCreate(false);
 		toggleShowUpdate(false);
+		toggleShowDelete(false);
 		toggleShowLogin(!showLogin);
 	};
 
@@ -241,6 +245,7 @@ const Homescreen = (props) => {
 		toggleShowHome(false);
 		toggleShowLogin(false);
 		toggleShowUpdate(false);
+		toggleShowDelete(false);
 		toggleShowCreate(!showCreate);
 	};
 
@@ -248,16 +253,13 @@ const Homescreen = (props) => {
 		toggleShowHome(false);
 		toggleShowLogin(false);
 		toggleShowCreate(false);
+		toggleShowDelete(false);
 		toggleShowUpdate(!showUpdate);
 	}
 
-
-
-	// const setShowDelete = () => {
-	// 	toggleShowCreate(false);
-	// 	toggleShowLogin(false);
-	// 	toggleShowDelete(!showDelete)
-	// };
+	const setShowDelete = () => {
+		toggleShowDelete(!showDelete)
+	};
 	
 	// const sort = (criteria) => {
 	// 	let prevSortRule = sortRule;
@@ -300,6 +302,9 @@ const Homescreen = (props) => {
 						<></>
 				}
 				{
+					showDelete && (<Delete deleteMap={deleteMap} setShowDelete={setShowDelete} activeid={activeMap._id} />)
+				}
+				{
 					// shows the registration screen, shown after clicking sign up
 					showCreate ?
 						<RegisterScreen setShowHome={setShowHome} setShowCreate={setShowCreate} fetchUser={props.fetchUser} />
@@ -324,7 +329,7 @@ const Homescreen = (props) => {
 				{
 					showHome & auth ?
 						<MapScreen listIDs={SidebarData} auth={auth} handleSetActive={handleSetActive}
-							createNewMap={createNewMap} updateMapField={updateListField} />
+							createNewMap={createNewMap} updateMapField={updateListField} setShowDelete={setShowDelete}/>
 						:
 						<></>
 				}
